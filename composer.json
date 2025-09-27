@@ -1,5 +1,5 @@
 {
-    "name": "n00rd1/business-integration-hub",
+    "name": "n00rd1/bitrixprolib",
     "description": "Профессиональная PHP библиотека для комплексной интеграции бизнес-систем: Bitrix24 CRM, TrustMe цифровые подписи, MyStore управление складом и бизнес-утилиты",
     "type": "library",
     "keywords": ["bitrix", "crm", "trustme", "mystore", "php", "api", "integration", "системная-интеграция", "автоматизация", "бизнес-процессы"],
@@ -7,7 +7,7 @@
     "authors": [
         {
             "name": "N00rd1",
-            "email": "n00rd1@example.com"
+            "email": "mukhamedshin13@gmail.com"
         }
     ],
     "require": {

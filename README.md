@@ -3,6 +3,7 @@
 [![PHP Version](https://img.shields.io/badge/php-%3E%3D8.1-blue.svg)](https://php.net)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/n00rd1/BitrixProLib-byN00rd1)
+[![Downloads](https://img.shields.io/packagist/dt/n00rd1/bitrixprolib.svg)](https://packagist.org/packages/n00rd1/bitrixprolib)
 
 Профессиональная PHP библиотека для комплексной интеграции бизнес-систем. Предоставляет единый интерфейс для работы с CRM Bitrix24, сервисом цифровых подписей TrustMe, системой управления складом MyStore и множеством других бизнес-сервисов. Создана системным интегратором с 5+ летним опытом для решения реальных задач автоматизации бизнес-процессов.
 
@@ -29,26 +30,26 @@
 ### Composer (Рекомендуется)
 
 ```bash
-composer require your-username/bitrixprolib
+composer require n00rd1/bitrixprolib
 ```
 
 ### Ручная установка
 
 1. Клонируйте репозиторий:
 ```bash
-git clone https://github.com/your-username/bitrixprolib.git
-cd bitrixprolib
+git clone https://github.com/n00rd1/BitrixProLib-byN00rd1.git
+cd BitrixProLib-byN00rd1
 ```
 
 2. Подключите автозагрузчик:
 ```php
-require_once 'path/to/bitrixprolib/autoload.php';
+require_once 'path/to/BitrixProLib-byN00rd1/autoload.php';
 ```
 
 ## 🏗️ Структура проекта
 
 ```
-bitrixprolib/
+BitrixProLib-byN00rd1/
 ├── src/
 │   ├── Bitrix/           # Интеграция с CRM Bitrix24
 │   ├── TrustMe/          # Сервис цифровых подписей
@@ -84,7 +85,7 @@ $dealId = $bitrix->createDeal([
 $clients = $bitrix->listContacts(['PHONE' => '+77001234567']);
 ```
 
-### TrustMe Digital Signatures
+### TrustMe Цифровые подписи
 
 ```php
 use BitrixProLib\TrustMe\TrustmeService;
@@ -95,16 +96,16 @@ $trustme = new TrustmeService(
     logDirectory: '/path/to/logs'
 );
 
-// Send document for signing
+// Отправка документа на подписание
 $result = $trustme->sendToSignWithFileUrl(
     fileUrl: 'https://example.com/document.pdf',
-    companyName: 'Your Company',
+    companyName: 'Ваша компания',
     phone: '+77001234567',
-    contractName: 'Service Agreement'
+    contractName: 'Договор на услуги'
 );
 ```
 
-### MyStore Integration
+### Интеграция с MyStore
 
 ```php
 use BitrixProLib\MyStore\MyStoreClient;
@@ -114,209 +115,204 @@ $mystore = new MyStoreClient(
     password: 'your_password'
 );
 
-// Get products
+// Получение товаров
 $products = $mystore->getProducts(limit: 50);
 
-// Create contact
+// Создание контакта
 $contact = $mystore->createContact([
-    'name' => 'John Doe',
-    'email' => 'john@example.com'
+    'name' => 'Иван Иванов',
+    'email' => 'ivan@example.com'
 ]);
 ```
 
-### Advanced Logging
+### Продвинутое логирование
 
 ```php
 use BitrixProLib\Logger\Logger;
 
-// Configure logging
+// Настройка логирования
 Logger::setLogDirectory('/path/to/logs');
 Logger::setLogRetentionDays(30);
 
-// Log messages
-Logger::log('Operation completed successfully', 'success');
-Logger::log('Error occurred', 'error');
+// Логирование сообщений
+Logger::log('Операция выполнена успешно', 'success');
+Logger::log('Произошла ошибка', 'error');
 ```
 
-## 📚 API Documentation
+## 📚 API Документация
 
 ### Bitrix24 API
 
-#### Deal Management
-- `createDeal(array $fields): int|null` - Create new deal
-- `updateDeal(int $dealId, array $fields): bool` - Update existing deal
-- `deleteDeal(int $dealId): bool` - Delete deal
-- `getDealById(int $dealId): array|null` - Get deal by ID
-- `listDeals(array $filter, array $select, int $start): array|null` - List deals
+#### Управление сделками
 
-#### Contact Management
-- `createClient(array $fields): int|null` - Create new contact
-- `updateClient(int $clientId, array $fields): bool` - Update contact
-- `deleteClient(int $clientId): bool` - Delete contact
-- `getClientById(int $clientId): array|null` - Get contact by ID
-- `listClients(array $filter, array $select, int $start): array|null` - List contacts
+* `createDeal(array $fields): int|null` - Создание новой сделки
+* `updateDeal(int $dealId, array $fields): bool` - Обновление существующей сделки
+* `deleteDeal(int $dealId): bool` - Удаление сделки
+* `getDealById(int $dealId): array|null` - Получение сделки по ID
+* `listDeals(array $filter, array $select, int $start): array|null` - Список сделок
 
-#### Document Generation
-- `createDocument(int $templateId, int $entityTypeId, int $entityId, array $values): array|null` - Generate document
-- `enableDocumentPublicUrl(int $documentId): string|null` - Enable public URL for document
+#### Управление контактами
+
+* `createContact(array $fields): int|null` - Создание нового контакта
+* `updateContact(int $contactId, array $fields): bool` - Обновление контакта
+* `deleteContact(int $contactId): bool` - Удаление контакта
+* `getContactById(int $contactId): array|null` - Получение контакта по ID
+* `listContacts(array $filter, array $select, int $start): array|null` - Список контактов
+
+#### Генерация документов
+
+* `createDocument(int $templateId, int $entityTypeId, int $entityId, array $values): array|null` - Создание документа
+* `enableDocumentPublicUrl(int $documentId): string|null` - Включение публичной ссылки
 
 ### TrustMe API
 
-#### Document Signing
-- `sendToSignWithFileUrl(string $fileUrl, string $companyName, string $phone, ...): array` - Send document by URL
-- `sendToSignWithFileBase64(string $fileUrl, string $companyName, string $fio, ...): array` - Send document as Base64
+#### Подписание документов
+
+* `sendToSignWithFileUrl(string $fileUrl, string $companyName, string $phone, ...): array` - Отправка документа по URL
+* `sendToSignWithFileBase64(string $fileUrl, string $companyName, string $fio, ...): array` - Отправка документа в Base64
+* `getDocumentStatus(string $documentId): array` - Получение статуса документа
+* `downloadSignedDocument(string $documentId, string $savePath): bool` - Скачивание подписанного документа
 
 ### MyStore API
 
-#### Entity Management
-- `getProducts(int $limit, int $offset): array` - Get products
-- `createProduct(array $data): array` - Create product
-- `getContacts(int $limit, int $offset): array` - Get contacts
-- `createContact(array $data): array` - Create contact
-- `getCustomerOrders(int $limit, int $offset): array` - Get customer orders
+#### Управление сущностями
 
-### Utility Functions
+* `getProducts(int $limit, int $offset): array` - Получение товаров
+* `createProduct(array $data): array` - Создание товара
+* `getContacts(int $limit, int $offset): array` - Получение контактов
+* `createContact(array $data): array` - Создание контакта
+* `getCustomerOrders(int $limit, int $offset): array` - Получение заказов покупателей
 
-#### Data Validation
-- `isValidPhone(string $phone): bool` - Validate phone number
-- `isValidIIN(string $iin): bool` - Validate IIN (Kazakhstan)
-- `sanitizePhoneNumber(string $phone): string` - Clean phone number
+### Утилитарные функции
 
-#### Name Processing
-- `splitFullName(string $fullName): array` - Split full name into parts
-- `combineFullName(string $lastName, string $firstName, string $middleName): string` - Combine name parts
+#### Валидация данных
 
-#### Response Handling
-- `sendResponse(bool $success, ?string $message, ?array $data, int $status): void` - Send JSON response
-- `logAndRespond(string $logMessage, ?string $responseMessage, ...): void` - Log and respond
+* `validatePhone(string $phone): bool` - Валидация номера телефона
+* `validateIIN(string $iin): bool` - Валидация ИИН (Казахстан)
+* `validateEmail(string $email): bool` - Валидация email адреса
+* `validateDate(string $date): bool` - Валидация даты
 
-## 🧪 Testing
+#### Форматирование данных
 
-Run the test suite:
+* `formatPhone(string $phone, string $format): string` - Форматирование номера телефона
+* `formatCurrency(float $amount, string $currency): string` - Форматирование валюты
+* `formatDate(string|\DateTime $date, string $format): string` - Форматирование даты
 
-```bash
-composer test
-```
+## 📖 Примеры
 
-Run specific test groups:
+Проверьте папку `examples/` для подробных примеров использования:
 
-```bash
-# Test Bitrix integration
-composer test:bitrix
+* `examples/bitrix_integration.php` - Полный рабочий процесс Bitrix24
+* `examples/trustme_signing.php` - Процесс подписания документов
+* `examples/mystore_inventory.php` - Управление инвентарем
+* `examples/webhook_handler.php` - Обработка webhook'ов
 
-# Test TrustMe integration  
-composer test:trustme
+## ⚙️ Конфигурация
 
-# Test MyStore integration
-composer test:mystore
+### Переменные окружения
 
-# Test utilities
-composer test:utils
-```
-
-## 📖 Examples
-
-Check the `examples/` directory for comprehensive usage examples:
-
-- `examples/bitrix_integration.php` - Complete Bitrix24 workflow
-- `examples/trustme_signing.php` - Document signing process
-- `examples/mystore_inventory.php` - Inventory management
-- `examples/webhook_handler.php` - Webhook processing
-
-## ⚙️ Configuration
-
-### Environment Variables
-
-Create a `.env` file in your project root:
+Создайте файл `.env` в корне проекта:
 
 ```env
-# Bitrix24 Configuration
+# Конфигурация Bitrix24
 BITRIX_AUTH_TOKEN=your_auth_token
 BITRIX_API_URL=https://your-portal.bitrix24.com/rest/main_user/
 
-# TrustMe Configuration
+# Конфигурация TrustMe
 TRUSTME_API_URL=https://api.trustme.kz/
 TRUSTME_AUTH_TOKEN=your_trustme_token
 
-# MyStore Configuration
+# Конфигурация MyStore
 MYSTORE_LOGIN=your_login
 MYSTORE_PASSWORD=your_password
 
-# Logging Configuration
+# Конфигурация логирования
 LOG_DIRECTORY=/path/to/logs
 LOG_RETENTION_DAYS=30
 ```
 
-### Logging Configuration
+### Конфигурация логирования
 
 ```php
 use BitrixProLib\Logger\Logger;
 
-// Set log directory
+// Установка директории логов
 Logger::setLogDirectory('/var/log/bitrixprolib');
 
-// Set retention period (days)
+// Установка периода хранения (дни)
 Logger::setLogRetentionDays(60);
 
-// Log levels: 'error', 'success', 'creation', 'update', 'request'
+// Уровни логирования: 'error', 'success', 'creation', 'update', 'request'
 ```
 
-## 🔧 Error Handling
+## 🔧 Обработка ошибок
 
-The library provides comprehensive error handling:
+Библиотека предоставляет комплексную обработку ошибок:
 
 ```php
 try {
     $dealId = $bitrix->createDeal($dealData);
 } catch (BitrixException $e) {
-    // Handle Bitrix-specific errors
-    Logger::log("Bitrix error: " . $e->getMessage(), 'error');
+    // Обработка ошибок Bitrix
+    Logger::log("Ошибка Bitrix: " . $e->getMessage(), 'error');
 } catch (TransportException $e) {
-    // Handle network/transport errors
-    Logger::log("Transport error: " . $e->getMessage(), 'error');
+    // Обработка сетевых/транспортных ошибок
+    Logger::log("Транспортная ошибка: " . $e->getMessage(), 'error');
 } catch (Exception $e) {
-    // Handle general errors
-    Logger::log("General error: " . $e->getMessage(), 'error');
+    // Обработка общих ошибок
+    Logger::log("Общая ошибка: " . $e->getMessage(), 'error');
 }
 ```
 
-## 🤝 Contributing
+## 🤝 Участие в разработке
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+Мы приветствуем вклад в развитие! Пожалуйста, ознакомьтесь с нашим Руководством по участию для подробностей.
 
-### Development Setup
+### Настройка среды разработки
 
-1. Fork the repository
-2. Clone your fork: `git clone https://github.com/your-username/bitrixprolib.git`
-3. Install dependencies: `composer install`
-4. Run tests: `composer test`
-5. Create a feature branch: `git checkout -b feature/amazing-feature`
-6. Commit your changes: `git commit -m 'Add amazing feature'`
-7. Push to the branch: `git push origin feature/amazing-feature`
-8. Open a Pull Request
+1. Форкните репозиторий
+2. Клонируйте ваш форк: `git clone https://github.com/your-username/BitrixProLib-byN00rd1.git`
+3. Установите зависимости: `composer install`
+4. Запустите проверки качества: `composer quality`
+5. Создайте ветку для функции: `git checkout -b feature/amazing-feature`
+6. Зафиксируйте изменения: `git commit -m 'Добавить удивительную функцию'`
+7. Отправьте в ветку: `git push origin feature/amazing-feature`
+8. Откройте Pull Request
 
-## 📄 License
+## 📄 Лицензия
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Этот проект лицензирован под лицензией MIT - см. файл LICENSE для подробностей.
 
-## 🆘 Support
+## 🆘 Поддержка
 
-- 📧 Email: support@bitrixprolib.com
-- 📖 Documentation: [docs.bitrixprolib.com](https://docs.bitrixprolib.com)
-- 🐛 Issues: [GitHub Issues](https://github.com/your-username/bitrixprolib/issues)
-- 💬 Discussions: [GitHub Discussions](https://github.com/your-username/bitrixprolib/discussions)
+* 📧 **Email:** [mukhamedshin13@gmail.com](mailto:mukhamedshin13@gmail.com)
+* 💬 **Telegram:** [@n00rd1](https://t.me/n00rd1)
+* 🐛 **Issues:** [GitHub Issues](https://github.com/n00rd1/BitrixProLib-byN00rd1/issues)
+* 💬 **Discussions:** [GitHub Discussions](https://github.com/n00rd1/BitrixProLib-byN00rd1/discussions)
 
-## 🙏 Acknowledgments
+## 🙏 Благодарности
 
-- Bitrix24 team for the excellent CRM platform
-- TrustMe team for digital signature services
-- MyStore team for inventory management solutions
-- PHP community for excellent tools and libraries
+* Команде Bitrix24 за отличную CRM платформу
+* Команде TrustMe за сервисы цифровых подписей
+* Команде MyStore за решения управления складом
+* PHP сообществу за отличные инструменты и библиотеки
 
-## 📊 Changelog
+## 📊 История изменений
 
-See [CHANGELOG.md](CHANGELOG.md) for a list of changes and version history.
+См. CHANGELOG.md для списка изменений и истории версий.
 
 ---
 
-**Made with ❤️ for the PHP community**
+**Создано с ❤️ для PHP сообщества**
+
+## Об авторе
+
+**n00rd1** - Системный интегратор с 5+ летним опытом разработки интеграций для бизнеса.
+
+* 🔗 **GitHub:** [@n00rd1](https://github.com/n00rd1)
+* 💬 **Telegram:** [@n00rd1](https://t.me/n00rd1)
+* 📧 **Email:** [mukhamedshin13@gmail.com](mailto:mukhamedshin13@gmail.com)
+
+---
+
+*Если эта библиотека помогла вам в работе, поставьте ⭐ звездочку!*
