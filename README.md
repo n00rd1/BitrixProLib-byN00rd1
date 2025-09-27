@@ -3,7 +3,6 @@
 [![PHP Version](https://img.shields.io/badge/php-%3E%3D8.1-blue.svg)](https://php.net)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/n00rd1/BitrixProLib-byN00rd1)
-[![Downloads](https://img.shields.io/packagist/dt/n00rd1/bitrixprolib.svg)](https://packagist.org/packages/n00rd1/bitrixprolib)
 
 Профессиональная PHP библиотека для комплексной интеграции бизнес-систем. Предоставляет единый интерфейс для работы с CRM Bitrix24, сервисом цифровых подписей TrustMe, системой управления складом MyStore и множеством других бизнес-сервисов. Создана системным интегратором с 5+ летним опытом для решения реальных задач автоматизации бизнес-процессов.
 
@@ -307,7 +306,7 @@ try {
 
 ## Об авторе
 
-**n00rd1** - Системный интегратор с 5+ летним опытом разработки интеграций для бизнеса.
+**n00rd1** - Системный интегратор с 3+ летним опытом разработки интеграций для бизнеса.
 
 * 🔗 **GitHub:** [@n00rd1](https://github.com/n00rd1)
 * 💬 **Telegram:** [@n00rd1](https://t.me/n00rd1)
